@@ -1,0 +1,78 @@
+spring -boot
+	JPA
+	java-mail
+	quartz(定时器)
+	task
+	httpclient
+	
+	32 6 
+	
+一组:
+	高一超,赵俊浩,王海宇,刘姝君,原丽,晁晨曦,辛梦丹  java-mail
+二组:
+	黄亚楠,王善乐,付威,鲁琛琛,金璐颖,李红阳,肖鹏燕  JPA
+三组:
+	张向醒,罗京臣,李特,李广害,李慧敏,曹耀辉  quartz(定时器)
+四组:
+	张飞阳,朱加龙,周世友,郑冲,贾蜡烛,王泽辉  task
+五组:
+	田知傲,崔康普,王浩,王越,刘崇洋,耿子放  httpclient
+	
+	
+通用mapper
+
+spring validate
+	@Valid需要加载方法的参数上
+	
+mybatis通用分页工具
+	PageHelper.startPage(当前页,每页显示多少条数据);
+	
+	如果一次性返回总条数和列表数据的话
+	new PageInfo<T>(list)
+	
+BeanUtils.copyProperties(source,target);
+
+文档：26-spring-boot-通用mapper.note
+链接：http://note.youdao.com/noteshare?id=ab635b10d64562aa08c58804d2fe3629&sub=047B99D6647F40B2AFC66CB5BAAFB299
+
+文档：27-spring-boot-全局异常处理.note
+链接：http://note.youdao.com/noteshare?id=7860d9ac5e988905283f8abac73af5c3&sub=D4B056C8BB6A416A8AB1E82A68900D85
+
+文档：28-spring-validate校验参数.note
+链接：http://note.youdao.com/noteshare?id=6c3184593be55ee6ffcbfd501d31f9bc&sub=1DF84534775445BD9569D3E0E80BDB2E
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//服务熔断
+@HystrixCommand(fallbackMethod = "paymentCircuitBreaker_fallback",commandProperties = {
+        @HystrixProperty(name = "circuitBreaker.enabled",value = "true"),  //是否开启断路器
+        @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold",value = "10"),  //请求次数
+        @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds",value = "10000"),  //时间范围
+        @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage",value = "60"), //失败率达到多少后跳闸
+})
+public String paymentCircuitBreaker(@PathVariable("id") Integer id){
+    if (id < 0){
+        throw new RuntimeException("*****id 不能负数");
+   }
+    String serialNumber = IdUtil.simpleUUID();
+
+    return Thread.currentThread().getName()+"\t"+"调用成功,流水号："+serialNumber;
+}
+public String paymentCircuitBreaker_fallback(@PathVariable("id") Integer id){
+    return "id 不能负数，请稍候再试,(┬＿┬)/~~    id: " +id;
+}
+ 
+
+
+	

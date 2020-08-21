@@ -1,0 +1,26 @@
+am:
+	spring boot自动配置????
+	spring boot 启动tomcat????
+	
+	spring boot监控模块
+	spring boot swagger
+		@Api(tags="")
+		@ApiOperation(value="")
+		@ApiModel(value="")
+		@ApiModelProperty(value="描述信息",example="默认值")
+	如果需要在Swaggerui上显示model的话,需要在Controller 的方法上@RequestBody
+	http get-delete,post-put 是如何发送数据的
+	
+	spring boot使用undertow servlet容器
+	
+pm:
+	整合数据源
+	整合mybatis
+		pom
+			mysql-connector
+			数据库连接池	
+			mybatis整合spring boot
+	@MapperScan(value="扫描mapper的包--可以写通配符")
+	在Mapper接口上可以写@Mapper-->导包的问题
+	
+需要用freemaker + spring boot + mybatis CRUD
